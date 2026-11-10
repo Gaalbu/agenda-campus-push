@@ -111,7 +111,10 @@ class _CardEvento extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(evento.banner, height: 140, width: double.infinity, fit: BoxFit.cover),
+            AspectRatio(
+              aspectRatio: 2,
+              child: Image.asset(evento.banner, width: double.infinity, fit: BoxFit.cover),
+            ),
             Padding(
               padding: const EdgeInsets.all(12),
               child: Column(

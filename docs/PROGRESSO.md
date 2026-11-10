@@ -12,10 +12,14 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 
 ## Fases
 - [x] F1 Ambiente
-- [~] F2 App base: código escrito (Home, detalhe, serviço de notificações, Android configurado); falta compilar
-- [ ] F3 Firebase: projeto GCP `agenda-campus-gaalbu` criado, mas `addFirebase` deu 403 (termos do Firebase não aceitos / Firefox sem login)
+- [x] F2 App base: compila (Java 25 OK), roda no emulador, token FCM obtido
+- [x] F3 Firebase: projeto `agenda-do-campus` (Spark, sem Analytics), app Android registrado, flutterfire configure feito
 - [ ] F4–F9
 
-## Bloqueio atual
-Firefox (ponte MCP) está deslogado do Google. Precisa do usuário para logar em gabrielalencarem@gmail.com
-e aceitar os termos do Firebase em https://console.firebase.google.com.
+## Soluções de build (guardar)
+- `compileSdk = 37` + `android.suppressUnsupportedCompileSdk=37` (androidx.core 1.19 e flutter_local_notifications 23 exigem; AGP 9.1 recomenda 36).
+- `kotlin.incremental=false` no gradle.properties (pub cache em C:, projeto em D: quebra o cache incremental do Kotlin).
+- Plataforma `android-37.0` e NDK 28.2.13676358 instalados via `android.exe sdk install`.
+- API do flutter_local_notifications 23: `initialize(settings:)` e `show(id:, title:, body:, notificationDetails:)` são nomeados.
+- Termos do Firebase aceitos pelo assistente do Console (com autorização do usuário); o `addfirebase` por CLI dava 403 antes disso.
+- Token FCM do emulador: `adb logcat -d | grep FCM_TOKEN`.

@@ -49,7 +49,7 @@ class NotificacoesService {
         ?.createNotificationChannel(canal);
 
     await _locais.initialize(
-      const InitializationSettings(
+      settings: const InitializationSettings(
         android: AndroidInitializationSettings('@drawable/ic_stat_evento'),
       ),
       onDidReceiveNotificationResponse: (resp) {
@@ -119,10 +119,10 @@ class NotificacoesService {
     }
 
     await _locais.show(
-      m.hashCode,
-      n.title,
-      n.body,
-      NotificationDetails(
+      id: m.hashCode,
+      title: n.title,
+      body: n.body,
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           canalId,
           'Eventos em destaque',
