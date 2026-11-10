@@ -17,7 +17,8 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - [x] F4 Desafio 1: push simples chegou com app em 2º plano (dumpsys + print em agenda_campus_gravacoes/ev_d1.png)
 - [x] F5 Repo público: https://github.com/Gaalbu/agenda-campus-push (URL raw da imagem = 200)
 - [x] F6 Desafio 2: BigPicture 1024x512 confirmado (ev_d2_exp.png)
-- [ ] F7–F9
+- [x] F7 Desafio 3: abre evento 3 em 2º plano (FCM_OPENED_APP) e com app encerrado (FCM_INITIAL_CHECK); prints ev_d3_*.png
+- [ ] F8–F9
 
 ## Soluções de build (guardar)
 - `compileSdk = 37` + `android.suppressUnsupportedCompileSdk=37` (androidx.core 1.19 e flutter_local_notifications 23 exigem; AGP 9.1 recomenda 36).
@@ -26,3 +27,8 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - API do flutter_local_notifications 23: `initialize(settings:)` e `show(id:, title:, body:, notificationDetails:)` são nomeados.
 - Termos do Firebase aceitos pelo assistente do Console (com autorização do usuário); o `addfirebase` por CLI dava 403 antes disso.
 - Token FCM do emulador: `adb logcat -d | grep FCM_TOKEN`.
+- Bug corrigido no D3: `getInitialMessage()` só devolvia algo quando consultado ANTES de `requestPermission`/`getToken` (código movido para o início de `iniciar()`).
+- Teste de app encerrado: usar `adb shell am kill` (NUNCA `force-stop`). O FCM sobe um processo para entregar; matar de novo antes do toque.
+- Envio pelo Console: compose carregado do zero deixa o passo 1 aberto; preencher via JS (setter nativo + eventos input/change), digitar `tela=evento` e `evento_id=3` em "Chave/Valor" e usar "Enviar mensagem de teste" (carrega os dados). Não clicar nos cabeçalhos do stepper (trava).
+- Capturas do painel do Firefox ficam defasadas: confirmar estado pelo DOM.
+- No Git Bash usar `export MSYS_NO_PATHCONV=1` para caminhos `/sdcard`.

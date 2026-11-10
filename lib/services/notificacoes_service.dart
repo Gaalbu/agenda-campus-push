@@ -60,7 +60,20 @@ class NotificacoesService {
       },
     );
 
-    // 2) Permissão (diálogo POST_NOTIFICATIONS no Android 13+).
+    // 2) Navegação por notificação: registrar os dois caminhos ANTES de qualquer await lento.
+    // 2a) Segundo plano: usuário tocou na notificação com o app vivo.
+    FirebaseMessaging.onMessageOpenedApp.listen((m) {
+      debugPrint('FCM_OPENED_APP: ${m.data}');
+      abrirPelaMensagem(m.data);
+    });
+    // 2b) App encerrado: foi iniciado pelo toque na notificação.
+    final inicial = await fcm.getInitialMessage();
+    debugPrint('FCM_INITIAL_CHECK: ${inicial == null ? 'nenhuma' : inicial.data}');
+    if (inicial != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => abrirPelaMensagem(inicial.data));
+    }
+
+    // 3) Permissão (diálogo POST_NOTIFICATIONS no Android 13+).
     final settings = await fcm.requestPermission(alert: true, badge: true, sound: true);
     statusPermissao.value = switch (settings.authorizationStatus) {
       AuthorizationStatus.authorized => 'permitidas',
@@ -68,7 +81,7 @@ class NotificacoesService {
       _ => 'não definidas',
     };
 
-    // 3) Token.
+    // 4) Token.
     final token = await fcm.getToken();
     tokenFcm.value = token;
     debugPrint('FCM_TOKEN: $token');
@@ -77,21 +90,8 @@ class NotificacoesService {
       debugPrint('FCM_TOKEN: $t');
     });
 
-    // 4) Primeiro plano: o FCM não exibe sozinho; mostramos uma notificação local.
+    // 5) Primeiro plano: o FCM não exibe sozinho; mostramos uma notificação local.
     FirebaseMessaging.onMessage.listen(_aoReceberEmPrimeiroPlano);
-
-    // 5) Segundo plano: usuário tocou na notificação com o app vivo.
-    FirebaseMessaging.onMessageOpenedApp.listen((m) {
-      debugPrint('FCM_OPENED_APP: ${m.data}');
-      abrirPelaMensagem(m.data);
-    });
-
-    // 6) App encerrado: foi iniciado pelo toque na notificação.
-    final inicial = await fcm.getInitialMessage();
-    if (inicial != null) {
-      debugPrint('FCM_INITIAL: ${inicial.data}');
-      WidgetsBinding.instance.addPostFrameCallback((_) => abrirPelaMensagem(inicial.data));
-    }
   }
 
   static Future<void> _aoReceberEmPrimeiroPlano(RemoteMessage m) async {
