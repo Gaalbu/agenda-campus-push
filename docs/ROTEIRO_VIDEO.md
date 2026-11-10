@@ -42,7 +42,7 @@ Fale por cima dos clipes; as falas abaixo são sugestões, adapte ao seu jeito.
 
 *Observar:* selo "Aberto pela notificação" nos dois casos; no segundo, o app foi fechado antes.
 
-## 6. Bastidores técnicos (≈1 min) — clipe `07_codigo_android_studio`
+## 6. Bastidores técnicos (≈1 min) — clipe `07_codigo_rolagem` (código-chave rolando; gerado com ffmpeg)
 > "No código, a classe `NotificacoesService` cria um canal de importância alta, pede a permissão, pega o token e
 > trata a navegação em **três** lugares: `getInitialMessage` para app encerrado, `onMessageOpenedApp` para segundo
 > plano e a notificação local para primeiro plano. Um detalhe que me custou tempo: o `getInitialMessage` precisa ser

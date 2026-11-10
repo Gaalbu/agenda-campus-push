@@ -18,7 +18,7 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - [x] F5 Repo público: https://github.com/Gaalbu/agenda-campus-push (URL raw da imagem = 200)
 - [x] F6 Desafio 2: BigPicture 1024x512 confirmado (ev_d2_exp.png)
 - [x] F7 Desafio 3: abre evento 3 em 2º plano (FCM_OPENED_APP) e com app encerrado (FCM_INITIAL_CHECK); prints ev_d3_*.png
-- [~] F8 Gravações: scripts prontos (tools/layout.ps1, tools/rec.sh); bloqueio: PowerShell de administrador do usuário fica por cima e não pode ser minimizado por processo sem elevação
+- [x] F8 Gravações: 01 a 07 prontos em D:digosgenda_campus_gravacoes (cada um em duas versões: desktop e `_emulador`). O 07 é um vídeo de rolagem do código gerado com ffmpeg, pois o acesso do computer use ao Android Studio foi negado pelo usuário.
 - [x] F9 README, roteiro (docs/ROTEIRO_VIDEO.md) e este log escritos
 
 ## Soluções de build (guardar)
@@ -35,3 +35,6 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - No Git Bash usar `export MSYS_NO_PATHCONV=1` para caminhos `/sdcard`.
 - Gravação: `bash tools/rec.sh start <nome> <seg>` + `bash tools/rec.sh wait` (ffmpeg gdigrab com -t e screenrecord, ambos se encerram sozinhos). Matar o ffmpeg deixa o arquivo truncado. Região 1680x1040 (Firefox + emulador). Antes: `powershell -ExecutionPolicy Bypass -File tools/layout.ps1`. Depois: `... layout.ps1 -Restore`.
 - `taskkill` no Git Bash com MSYS_NO_PATHCONV=1 usa `/F` e `/PID` (uma barra).
+- Os clipes têm duração fixa e podem ter tempo ocioso no fim: cortar na edição. O clipe do emulador pode ser mais curto/longo que o do desktop (screenrecord inicia ~1 s depois).
+- O PowerShell de administrador do usuário só foi escondido com `Shell.Application.MinimizeAll()` + janelas do Firefox/emulador reposicionadas por título (EnumWindows). O processo `firefox` tem várias janelas; `MainWindowHandle` só aponta uma.
+- Se a sessão cair, o emulador morre junto: reabrir com `emulator -avd Pixel_7_API_35 -gpu host -no-snapshot-save` e o Firefox precisa reabrir o compose do Console.
