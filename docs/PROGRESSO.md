@@ -14,7 +14,8 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - [x] F1 Ambiente
 - [x] F2 App base: compila (Java 25 OK), roda no emulador, token FCM obtido
 - [x] F3 Firebase: projeto `agenda-do-campus` (Spark, sem Analytics), app Android registrado, flutterfire configure feito
-- [ ] F4–F9
+- [x] F4 Desafio 1: push simples chegou com app em 2º plano (dumpsys + print em agenda_campus_gravacoes/ev_d1.png)
+- [ ] F5–F9
 
 ## Soluções de build (guardar)
 - `compileSdk = 37` + `android.suppressUnsupportedCompileSdk=37` (androidx.core 1.19 e flutter_local_notifications 23 exigem; AGP 9.1 recomenda 36).
