@@ -18,7 +18,8 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - [x] F5 Repo público: https://github.com/Gaalbu/agenda-campus-push (URL raw da imagem = 200)
 - [x] F6 Desafio 2: BigPicture 1024x512 confirmado (ev_d2_exp.png)
 - [x] F7 Desafio 3: abre evento 3 em 2º plano (FCM_OPENED_APP) e com app encerrado (FCM_INITIAL_CHECK); prints ev_d3_*.png
-- [ ] F8–F9
+- [~] F8 Gravações: scripts prontos (tools/layout.ps1, tools/rec.sh); bloqueio: PowerShell de administrador do usuário fica por cima e não pode ser minimizado por processo sem elevação
+- [x] F9 README, roteiro (docs/ROTEIRO_VIDEO.md) e este log escritos
 
 ## Soluções de build (guardar)
 - `compileSdk = 37` + `android.suppressUnsupportedCompileSdk=37` (androidx.core 1.19 e flutter_local_notifications 23 exigem; AGP 9.1 recomenda 36).
@@ -32,3 +33,5 @@ Log vivo. Se a sessão cair, retomar por aqui e por `D:\codigos\PLANO_PUSH_FCM.m
 - Envio pelo Console: compose carregado do zero deixa o passo 1 aberto; preencher via JS (setter nativo + eventos input/change), digitar `tela=evento` e `evento_id=3` em "Chave/Valor" e usar "Enviar mensagem de teste" (carrega os dados). Não clicar nos cabeçalhos do stepper (trava).
 - Capturas do painel do Firefox ficam defasadas: confirmar estado pelo DOM.
 - No Git Bash usar `export MSYS_NO_PATHCONV=1` para caminhos `/sdcard`.
+- Gravação: `bash tools/rec.sh start <nome> <seg>` + `bash tools/rec.sh wait` (ffmpeg gdigrab com -t e screenrecord, ambos se encerram sozinhos). Matar o ffmpeg deixa o arquivo truncado. Região 1680x1040 (Firefox + emulador). Antes: `powershell -ExecutionPolicy Bypass -File tools/layout.ps1`. Depois: `... layout.ps1 -Restore`.
+- `taskkill` no Git Bash com MSYS_NO_PATHCONV=1 usa `/F` e `/PID` (uma barra).
